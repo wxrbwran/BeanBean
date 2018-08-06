@@ -1,0 +1,8 @@
+<!--pages/welcome/welcome.wxml-->
+<view>
+  <image src="/images/avatar/avatar-1.png"></image>
+  <text>welcome: '小橘子'</text>
+  <view>
+    <text>开启</text>
+  </view>
+</view>

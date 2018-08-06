@@ -1,0 +1,14 @@
+{
+  "pages":[
+    "pages/welcome/welcome"
+  ],
+  "window":{
+    "backgroundTextStyle":"light",
+    "navigationBarBackgroundColor": "#53bb45",
+    "navigationBarTitleText": "MiniProgram",
+    "navigationBarTextStyle":"black"
+  },
+  "networkTimeout": {
+    "request":5000
+  }
+}
