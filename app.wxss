@@ -1,12 +1,17 @@
-/* @import './assets/css/weui.wxss'; */
+@import './assets/css/weui.wxss';
 @import './assets/css/base.wxss';
-@import './assets/css/wxParse.wxss';
+/* @import './assets/css/wxParse.wxss'; */
 
 /**app.wxss**/
-.green{
+/* .green{
   color: #26b961;
-}
+} */
 page{
   height: 100%;
   background-color: #f8f8f8;
+}
+text{
+  font-size: 24rpx;
+  color: #666;
+  font-family: 'Microsoft YaHei';
 }

@@ -1,0 +1,45 @@
+<view>
+  <swiper indicator-dots="{{indicatorDots}}"
+  autoplay="{{autoplay}}" interval="{{interval}}" duration="{{duration}}">
+    <block wx:for="{{imgUrls}}">
+      <swiper-item>
+        <image src="{{item}}" class="slide-image" />
+      </swiper-item>
+    </block>
+  </swiper>
+  <view class='post-container'>
+    <view class='post-author-date'>
+      <image src='/images/avatar/avatar-4.png'></image>
+      <text class='post-date'>May 21 2018</text>
+    </view>
+    <text class='post-title'>从同年呼啸而过的火车</text>
+    <image class='post-image' src='/images/post/post-5.jpg' mode='scaleToFill'></image>
+    <text class='post-content'>小时候，家的后面有一条铁路听说从南方北上的火车都必须经过这条铁路。火车大多在晚上经过，但也不定是只有在夜深人静的时候，火车的声音才能从远方传来。。。
+    </text>
+    <view class='post-like'>
+      <image src='/images/icon/wx_app_collect.png'></image>
+      <text>108</text>
+      <image src='/images/icon/wx_app_view.png'></image>
+      <text>92</text>
+      <image src='/images/icon/wx_app_message.png'></image>
+      <text>7</text>
+    </view>
+</view>
+  <view class='post-container'>
+    <view class='post-author-date'>
+      <image src='/images/avatar/avatar-3.png'></image>
+      <text class='post-date'>May 22 2018</text>
+    </view>
+    <text class='post-title'>记忆里的春节</text>
+    <image class='post-image' src='/images/post/post-1.jpg' mode='aspectFill'></image>
+    <text class='post-content'>年少时，有几样东西，是春节里必不可少的：烟花、新衣、凉菜、压岁钱、饺子。年分大小年，有的地方腊月二十三过小年，有的地方是腊月二十四。。。</text>
+    <view class='post-like'>
+      <image src='/images/icon/wx_app_collect.png'></image>
+      <text>108</text>
+      <image src='/images/icon/wx_app_view.png'></image>
+      <text>92</text>
+      <image src='/images/icon/wx_app_message.png'></image>
+      <text>7</text>
+    </view>
+  </view>
+</view>

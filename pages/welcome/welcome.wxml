@@ -1,8 +1,8 @@
 <!--pages/welcome/welcome.wxml-->
-<view>
-  <image src="/images/avatar/avatar-1.png"></image>
-  <text>welcome: '小橘子'</text>
-  <view>
-    <text>开启</text>
+<view class='container'>
+  <image class='avatar' src="http://pd2m834iw.bkt.clouddn.com/avatar-1.png"></image>
+  <text class='motto'>welcome: '小橘子'</text>
+  <view class='journey-container'>
+    <text class='journey'>开启</text>
   </view>
 </view>
