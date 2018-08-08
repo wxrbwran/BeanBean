@@ -1,11 +1,11 @@
 {
   "pages":[
-    "pages/post/post",
-    "pages/welcome/welcome"
+    "pages/welcome/welcome",
+    "pages/post/post"
   ],
   "window":{
     "backgroundTextStyle":"light",
-    "navigationBarBackgroundColor": "#ecc0a8",
+    "navigationBarBackgroundColor": "#4a6141",
     "navigationBarTitleText": "豆豆",
     "navigationBarTextStyle":"black"
   },

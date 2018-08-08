@@ -2,7 +2,7 @@
 <view class='container'>
   <image class='avatar' src="http://pd2m834iw.bkt.clouddn.com/avatar-1.png"></image>
   <text class='motto'>welcome: '小橘子'</text>
-  <view class='journey-container'>
+  <view class='journey-container' bindtap='handleJumpPost'>
     <text class='journey'>开启</text>
   </view>
 </view>

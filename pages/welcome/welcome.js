@@ -7,7 +7,11 @@ Page({
   data: {
   
   },
-
+  handleJumpPost() {
+    wx.redirectTo({
+      url: '/pages/post/post',
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
