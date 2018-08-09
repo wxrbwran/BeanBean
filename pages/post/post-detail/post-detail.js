@@ -24,6 +24,12 @@ Page({
        mask: true,
      })
   },
+  onCommentTap(e) {
+    const { postId } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `../post-comment/post-comment?id=${postId}`,
+    })
+  },
   onCollectionTap(e) {
     const { postId } = e.currentTarget.dataset;
     const post = this._dbPost.collect();

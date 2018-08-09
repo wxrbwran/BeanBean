@@ -1,20 +1,27 @@
-// pages/post/post-comment/post-comment.js
-Page({
+import { DBPost } from '../../../db/DBPost.js';
 
+Page({
+  _dbPost: null,
   /**
    * 页面的初始数据
    */
   data: {
-  
+    comments: [],
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-  
+    const { id } = options;
+    this._dbPost = new DBPost(id);
+    const comments = this._dbPost.getCommentData();
+    this.setData({ comments });
   },
-
+  previewImg(e){
+    const { imgIdx, commentIdx } = e.currentTarget.dataset;
+    console.log(imgIdx, commentIdx);
+  },
   /**
    * 生命周期函数--监听页面初次渲染完成
    */

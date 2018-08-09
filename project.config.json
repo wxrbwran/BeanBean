@@ -36,9 +36,9 @@
 			"current": 0,
 			"list": [
 				{
-					"id": -1,
+					"id": 0,
 					"name": "带参数的详情页",
-					"pathName": "pages/post/post-detail/post-detail",
+					"pathName": "pages/post/post-comment/post-comment",
 					"query": "id=2"
 				}
 			]

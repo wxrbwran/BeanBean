@@ -22,6 +22,11 @@ class DBPost{
   collect(){
     return this.updatePostData("collect");
   }
+  getCommentData() {
+    var { comments } = this.getPostItemById();
+    comments.sort((a, b) => a.create_time - b.create_time);
+    return comments;
+  }
   up() {
     return this.updatePostData("up");
   }
