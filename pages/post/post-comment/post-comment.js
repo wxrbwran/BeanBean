@@ -1,38 +1,18 @@
-// pages/post/post.js
-import { DBPost } from '../../db/DBPost.js';
-
+// pages/post/post-comment/post-comment.js
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    indicatorDots: true,
-    autoplay: true,
-    interval: 5000,
-    duration: 300,
-    imgUrls: [
-      '/images/post/post-1@text.jpg',
-      '/images/post/post-2@text.jpg',
-      '/images/post/post-3@text.jpg',
-      
-    ],
-    postList: [],
+  
   },
-  handleTapToDetail(e){
-    const { postId } = e.currentTarget.dataset;
-    wx.navigateTo({
-      url: `./post-detail/post-detail?id=${postId}`,
-    })
-  },
+
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    const dbPost = new DBPost();
-    this.setData({
-      postList: dbPost.getAllPostData(),
-    });
+  
   },
 
   /**

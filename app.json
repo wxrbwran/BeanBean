@@ -1,13 +1,15 @@
 {
   "pages":[
+    "pages/post/post",
     "pages/welcome/welcome",
-    "pages/post/post"
+    "pages/post/post-detail/post-detail",
+    "pages/post/post-comment/post-comment"
   ],
   "window":{
     "backgroundTextStyle":"light",
     "navigationBarBackgroundColor": "#4a6141",
     "navigationBarTitleText": "豆豆",
-    "navigationBarTextStyle":"black"
+    "navigationBarTextStyle":"white"
   },
   "networkTimeout": {
     "request":5000
