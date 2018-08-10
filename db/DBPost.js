@@ -1,3 +1,5 @@
+import moment from '../utls/miment.js';
+
 class DBPost{
   constructor(postId){
     this.storageKeyName = 'postList';
@@ -25,10 +27,20 @@ class DBPost{
   getCommentData() {
     var { comments } = this.getPostItemById();
     comments.sort((a, b) => a.create_time - b.create_time);
-    return comments;
+    const handledComments = comments
+    .map(c => {
+      // console.log(+c.create_time);
+      c.create_time = moment((+c.create_time) * 1000, 'x').format('YYYY-MM-DD');
+      return c;
+    });
+    console.log(handledComments);
+    return handledComments;
   }
   up() {
     return this.updatePostData("up");
+  }
+  newComment(newComment) {
+    this.updatePostData('comment', newComment);
   }
   updatePostData(category, newComment) {
     var postData = this.getPostItemById(),
