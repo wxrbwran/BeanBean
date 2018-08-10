@@ -45,6 +45,10 @@ Page({
       mask: true,
     })
   },
+  //阅读量+1
+  addReadingTimes() {
+    this._dbPost.addReadingTimes();
+  },
   getDetail(postId) {
     console.log(postId);
     const post = this._dbPost.getPostItemById();
@@ -57,6 +61,7 @@ Page({
     // console.log(options.id);
     this._dbPost = new DBPost(options.id);
     this.getDetail(options.id);
+    this.addReadingTimes();
   },
 
   /**
