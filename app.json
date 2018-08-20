@@ -1,7 +1,8 @@
 {
   "pages":[
-    "pages/post/post",
+    "pages/movie/movie",
     "pages/welcome/welcome",
+    "pages/post/post",
     "pages/post/post-detail/post-detail",
     "pages/post/post-comment/post-comment"
   ],
@@ -11,7 +12,28 @@
     "navigationBarTitleText": "豆豆",
     "navigationBarTextStyle":"white"
   },
+  "tabBar": {
+    "borderStyle": "white",
+    "selectedColor": "#4A6141",
+    "color": "#333",
+    "backgroundColor": "#fff",
+    "position": "bottom",
+    "list": [
+      {
+        "pagePath": "pages/post/post",
+        "text": "文字",
+        "iconPath": "images/icon/wx_app_news.png",
+        "selectedIconPath": "images/icon/wx_app_news@HL.png"
+      },
+      {
+        "pagePath": "pages/movie/movie",
+        "text": "光影",
+        "iconPath": "images/icon/wx_app_movie.png",
+        "selectedIconPath": "images/icon/wx_app_movie@HL.png"
+      }
+    ]
+  },
   "networkTimeout": {
-    "request":5000
+    "request":20000
   }
 }

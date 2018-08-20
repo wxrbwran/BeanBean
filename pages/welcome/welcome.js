@@ -8,7 +8,7 @@ Page({
   
   },
   handleJumpPost() {
-    wx.redirectTo({
+    wx.switchTab({
       url: '/pages/post/post',
     })
   },

@@ -41,6 +41,6 @@ App({
       name: '',
       avatar: '',
     },
-    visitedArticles: ''
+    doubanBase: "https://douban.uieee.com",
   }
 })
