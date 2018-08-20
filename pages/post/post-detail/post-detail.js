@@ -1,4 +1,5 @@
 import { DBPost } from '../../../db/DBPost.js'; 
+const app = getApp();
 
 Page({
   _dbPost: null,
@@ -8,15 +9,59 @@ Page({
   data: {
     post: {},
     postId: null,
+    isPlayingMusic: false,
+  },
+  onMusicTap() {
+    if (this.data.isPlayingMusic) {
+      wx.pauseBackgroundAudio();
+      this.setData({
+        isPlayingMusic: false
+      })
+      app.globalData.g_isPlayingMusic = false;
+    } else {
+      wx.playBackgroundAudio({
+        dataUrl: this.data.post.music.url,
+        title: this.data.post.music.title,
+        coverImgUrl: this.data.post.music.coverImg
+      })
+      this.setData({
+        isPlayingMusic: true
+      })
+      app.globalData.g_isPlayingMusic = true;
+      app.globalData.g_currentMusicPostId = this.data.post.postId;
+    }
+  },
+  setMusicMonitor() {
+    const self = this;
+    wx.onBackgroundAudioStop(() => {
+      self.setData({ isPlayingMusic: false });
+    })
+  },
+  setAnimation() {
+    const animationUp = wx.createAnimation({
+      timingFunction: 'ease-in-out',
+    })
+    this.animationUp = animationUp;
   },
   onUpTap(e){
     const { postId } = e.currentTarget.dataset;
     const post = this._dbPost.up();
     console.log(post);
+    const self = this;
     this.setData({ 
       'post.upStatus': post.upStatus,
       'post.upNum': post.upNum,
      });
+     this.animationUp.scale(2).step();
+     this.setData({
+       animationUp: this.animationUp.export(),
+     });
+    setTimeout(() => {
+      self.animationUp.scale(1).step();
+      this.setData({
+        animationUp: this.animationUp.export(),
+      });
+    }, 300)
      wx.showToast({
        title: post.upStatus ? '点赞成功' : '取消点赞',
        duration: 1000,
@@ -62,6 +107,8 @@ Page({
     this._dbPost = new DBPost(options.id);
     this.getDetail(options.id);
     this.addReadingTimes();
+    this.setMusicMonitor();
+    this.setAnimation();
   },
 
   /**
@@ -91,7 +138,8 @@ Page({
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+    wx.stopBackgroundAudio();
+    this.setData({ isPlayingMusic: false });
   },
 
   /**
@@ -112,6 +160,11 @@ Page({
    * 用户点击右上角分享
    */
   onShareAppMessage: function () {
-  
+    const { post, postId } = this.data;
+    return {
+      title: post.title,
+      desc: post.content,
+      path: `/pages/post/post-detail/post-detail?id=${postId}`
+    }
   }
 })

@@ -42,6 +42,10 @@ class DBPost{
   newComment(newComment) {
     this.updatePostData('comment', newComment);
   }
+  //阅读数+1
+  addReadingTimes() {
+    this.updatePostData('reading');
+  }
   updatePostData(category, newComment) {
     var postData = this.getPostItemById(),
       allPostData = this.getAllPostData();
