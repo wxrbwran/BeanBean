@@ -42,5 +42,6 @@ App({
       avatar: '',
     },
     doubanBase: "https://douban.uieee.com",
+    // doubanBase: "http://t.yushu.im",
   }
 })

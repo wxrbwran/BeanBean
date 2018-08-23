@@ -7,7 +7,9 @@ Page({
     inTheaters: [],
     comingSoon: [],
     top250: [],
-    containerShow: false,
+    containerShow: true,
+    searchPanelShow: false,
+    searchResult: [],
   },
   getMovieListData(url, settedKey, categoryTitle) {
     var that = this;
@@ -15,23 +17,26 @@ Page({
       url: url,
       method: 'GET',
       header: {
-      "content-type": "json"
+        "content-type": "json"
       },
       success(res) {
         that.processDoubanData(res.data, settedKey, categoryTitle);
-        that.setData({ containerShow: true });
+        if (!categoryTitle) {
+          that.setData({ 
+            containerShow: false,
+            searchPanelShow: true,
+          });
+        }
       },
       fail(error) {
-        // fail
         console.log(error)
       },
     })
   },
   processDoubanData(moviesDouban, settedKey, categoryTitle) {
     const movies = [];
-    console.log(moviesDouban)
+    // console.log(moviesDouban)
     for (let subject of moviesDouban.subjects) {
-      // const subject = moviesDouban.subjects[idx];
       let title = subject.title;
       if (title.length >= 6) {
         title = title.substring(0, 6) + "...";
@@ -54,6 +59,39 @@ Page({
     this.setData(readyData);
     wx.hideNavigationBarLoading();
   },
+  onMoreTap(event) {
+    const category = event.currentTarget.dataset.category;
+    console.log(event);
+    wx.navigateTo({
+      url: `more-movie/more-movie?category=${category}`
+    })
+  },
+  onBindFocus() {
+    this.setData({
+      containerShow: false,
+      searchPanelShow: true
+    })
+  },
+  onCancelImgTap() {
+    this.setData({
+      containerShow: true,
+      searchPanelShow: false,
+      inputValue: null,
+      searchResult: []
+    })
+  },
+  onBindConfirm(event) {
+    const keyWord = event.detail.value;
+    const searchUrl = app.globalData.doubanBase +
+      "/v2/movie/search?q=" + keyWord;
+    this.getMovieListData(searchUrl, "searchResult", "");
+  },
+  onMovieTap(e) {
+    const { movieId } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `movie-detail/movie-detail?movieId=${movieId}`,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */
@@ -65,7 +103,7 @@ Page({
     const comingSoonUrl = `${doubanBase}${nameSpace}coming_soon${params}`;
     const top250Url = `${doubanBase}${nameSpace}top250${params}`;
     wx.showNavigationBarLoading();
-    this.getMovieListData(inTheatersUrl, 'inTheaters', '正在上映');
+    this.getMovieListData(inTheatersUrl, 'inTheaters', '正在热映');
     this.getMovieListData(comingSoonUrl, 'comingSoon', '即将上映');
     this.getMovieListData(top250Url, 'top250', '豆瓣250'); 
   },
@@ -104,18 +142,4 @@ Page({
   onPullDownRefresh: function () {
   
   },
-
-  /**
-   * 页面上拉触底事件的处理函数
-   */
-  onReachBottom: function () {
-  
-  },
-
-  /**
-   * 用户点击右上角分享
-   */
-  onShareAppMessage: function () {
-  
-  }
 })

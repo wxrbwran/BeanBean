@@ -114,11 +114,16 @@ function http(url, callBack) {
     header: {
       "content-type": "json"
     },
-    success: function (res) {
+    success(res) {
       callBack(res.data);
     },
-    fail: function (error) {
+    fail(error) {
       console.log(error)
+    },
+    complete() {
+      wx.stopPullDownRefresh();
+      //隐藏loading状态
+      wx.hideNavigationBarLoading();
     }
   })
 }
@@ -126,8 +131,8 @@ function http(url, callBack) {
 //将数组转换为以 / 分隔的字符串
 function convertToCastString(casts) {
   var castsjoin = "";
-  for (var idx in casts) {
-    castsjoin = castsjoin + casts[idx].name + " / ";
+  for (let cast of casts) {
+    castsjoin = castsjoin + cast.name + " / ";
   }
   return castsjoin.substring(0, castsjoin.length - 2);
 }

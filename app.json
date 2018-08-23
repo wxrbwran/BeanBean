@@ -1,6 +1,9 @@
 {
   "pages":[
+    "pages/setting/setting",
     "pages/movie/movie",
+    "pages/movie/more-movie/more-movie",
+    "pages/movie/movie-detail/movie-detail",
     "pages/welcome/welcome",
     "pages/post/post",
     "pages/post/post-detail/post-detail",
@@ -8,6 +11,7 @@
   ],
   "window":{
     "backgroundTextStyle":"light",
+    "backgroundColor": "#4a6141",
     "navigationBarBackgroundColor": "#4a6141",
     "navigationBarTitleText": "豆豆",
     "navigationBarTextStyle":"white"
@@ -30,6 +34,12 @@
         "text": "光影",
         "iconPath": "images/icon/wx_app_movie.png",
         "selectedIconPath": "images/icon/wx_app_movie@HL.png"
+      },
+      {
+        "pagePath": "pages/setting/setting",
+        "text": "设置",
+        "iconPath": "images/icon/wx_app_setting.png",
+        "selectedIconPath": "images/icon/wx_app_setting@HL.png"
       }
     ]
   },

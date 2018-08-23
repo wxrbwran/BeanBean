@@ -1,8 +1,9 @@
 <import src="movie-list/movie-list-tpl.wxml" />
+<import src="movie-grid/movie-grid-tpl.wxml" />
 
 <view class="search">
   <icon type="search" class="search-img" size="13" color="#405f80"></icon>
-  <input type="text" placeholder="乘风破浪、西游伏妖篇" 
+  <input type="text" placeholder="搜索一下" 
   placeholder-class="placeholder" bindfocus="onBindFocus" value="{{inputValue}}"
   bindconfirm="onBindConfirm"/>
   <image wx:if="{{searchPanelShow}}" src="/images/icon/wx_app_xx.png" class="xx-img" catchtap="onCancelImgTap"></image>

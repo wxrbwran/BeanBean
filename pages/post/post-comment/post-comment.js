@@ -199,7 +199,6 @@ Page({
   previewImg(e){
     const { imgIdx, commentIdx } = e.currentTarget.dataset;
     const imgs = this.data.comments[commentIdx].content.img;
-    console.log(imgs);
     wx.previewImage({
       current: imgs[imgIdx], // 当前显示图片的http链接
       urls: imgs // 需要预览的图片http链接列表
