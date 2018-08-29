@@ -2,6 +2,7 @@ var app = getApp();
 
 Page({
   data: {
+    isLogin: !!app.globalData.userInfo,
     cache: [
       { iconurl: '/images/icon/wx_app_clear.png', title: '缓存清理', tap: 'clearCache' }
     ],
@@ -40,9 +41,28 @@ Page({
     },
   },
 
-  onLoad: function () {
-    this.setData({
-      userInfo: app.globalData.userInfo
+  onLoad() {
+    const { userInfo } = app.globalData;
+    if (!!userInfo) {
+      this.setData({ userInfo });
+    }
+  },
+  getUserInfo() {
+    const self = this;
+    wx.getUserInfo({
+      success(res) {
+        console.log(res);
+        // ‘包含用户信息等详细信息’
+        app.globalData.userInfo = res.userInfo;
+        self.setData({
+          userInfo: res.userInfo,
+          isLogin: true,
+        })
+        wx.setStorageSync('user', res.userInfo);
+      },
+      fail(err) {
+        wx.showToast({ title: err });
+      }
     })
   },
   //显示模态窗口

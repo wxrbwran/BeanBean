@@ -1,5 +1,5 @@
 <view class="container">
-  <view class="category-item personal-info">
+  <view class="category-item personal-info" wx:if="{{isLogin}}">
     <view class="user-avatar">
       <image src="{{userInfo.avatarUrl}}"></image>
     </view>
@@ -11,6 +11,13 @@
         <text>所在地：{{userInfo.city}}</text>
       </view>
     </view>
+  </view>
+  <view wx:else class="category-item user-unlog">
+    <button
+     open-type="getUserInfo"
+     size="mini"
+     bindgetuserinfo="getUserInfo"
+    >点击登录</button>
   </view>
   <view class="category-item">
     <block wx:for="{{cache}}" wx:key="{{index}}">

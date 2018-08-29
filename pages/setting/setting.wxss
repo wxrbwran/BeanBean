@@ -26,6 +26,14 @@
     position: relative;
     float: left;
 }
+.category-item.user-unlog {
+    margin-top: 30rpx;
+    text-align: center;
+    display: table-column;
+}
+.category-item.user-unlog button{
+  vertical-align: middle;
+}
 .category-item.personal-info .user-avatar image {
     vertical-align: top;
     width: 100%;
