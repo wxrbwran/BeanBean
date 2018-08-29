@@ -7,7 +7,9 @@
     "pages/welcome/welcome",
     "pages/post/post",
     "pages/post/post-detail/post-detail",
-    "pages/post/post-comment/post-comment"
+    "pages/post/post-comment/post-comment",
+    "pages/setting/device/device",
+    "pages/setting/document/download/download"
   ],
   "window":{
     "backgroundTextStyle":"light",

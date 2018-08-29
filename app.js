@@ -1,11 +1,29 @@
 //app.js
 App({
   onLaunch: function () {
-    // 展示本地存储能力
-    var logs = wx.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    wx.setStorageSync('logs', logs)
-    // console.log('app init...');
+   const userInfo = wx.getStorageSync('user');
+   const self = this;
+   if (!userInfo) {
+     wx.login({
+       success(r){
+         console.log(r);
+         // '{errMsg: "login:ok", code: "071z0wI22D0kbX0wBkH22F0mI22z0wIP"}'
+         wx.getUserInfo({
+           success(res){
+             console.log(res);
+             // ‘包含用户信息等详细信息’
+             self.globalData.userInfo = res.userInfo;
+             wx.setStorageSync('user', res.userInfo);
+           },
+           fail(err){
+             wx.showToast({title: err});
+           }
+         })
+       }
+     })   
+   } else {
+     this.globalData.userInfo = userInfo;
+   }
     // 登录
     // wx.login({
     //   success: res => {
@@ -36,11 +54,7 @@ App({
     // })
   },
   globalData: {
-    userInfo: null,
-    user:{
-      name: '',
-      avatar: '',
-    },
+    g_userInfo: null,
     doubanBase: "https://douban.uieee.com",
     // doubanBase: "http://t.yushu.im",
   }

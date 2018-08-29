@@ -42,30 +42,28 @@ Page({
 
   onLoad: function () {
     this.setData({
-      userInfo: app.globalData.g_userInfo
+      userInfo: app.globalData.userInfo
     })
   },
-
   //显示模态窗口
-  showModal: function (title, content, callback) {
+  showModal(title, content, callback) {
     wx.showModal({
       title: title,
       content: content,
       confirmColor: '#1F4BA5',
       cancelColor: '#7F8389',
-      success: function (res) {
-        if (res.confirm) {
-          callback && callback();
+      success(res) {
+        if (res.confirm && callback) {
+          callback();
         }
       }
     })
   },
-
   // 缓存清理
-  clearCache: function () {
-    this.showModal('缓存清理', '确定要清除本地缓存吗？', function () {
+  clearCache() {
+    this.showModal('缓存清理', '确定要清除本地缓存吗？',  () => {
       wx.clearStorage({
-        success: function (msg) {
+        success(msg) {
           wx.showToast({
             title: "缓存清理成功",
             duration: 1000,
@@ -73,47 +71,62 @@ Page({
             icon: "success"
           })
         },
-        fail: function (e) {
+        fail(e) {
           console.log(e)
         }
       })
     });
   },
-
   //显示系统信息
-  showSystemInfo: function () {
+  showSystemInfo() {
     wx.navigateTo({
       url: 'device/device'
     });
   },
-
   //网络状态
-  showNetWork: function () {
+  showNetWork() {
     var that = this;
     wx.getNetworkType({
-      success: function (res) {
-        var networkType = res.networkType
+      success(res) {
+        var { networkType } = res;
         that.showModal('网络状态', '您当前的网络：' + networkType);
       }
     })
   },
-
+  //在地图上显示当前位置
+  showMap() {
+    this.getLonLat((lon, lat) => {
+      wx.openLocation({
+        latitude: lat,
+        longitude: lon,
+        scale: 15,
+        name: "海底捞",
+        address: "xx街xx号",
+        fail() {
+          wx.showToast({
+            title: "地图打开失败",
+            duration: 1000,
+            icon: "cancel"
+          });
+        }
+      });
+    });
+  },
   //获取当前位置经纬度与当前速度
-  getLonLat: function (callback) {
+  getLonLat(callback) {
     var that = this;
     wx.getLocation({
       type: 'gcj02',
-      success: function (res) {
+      success(res) {
         console.log(res)
         callback(res.longitude, res.latitude, res.speed);
       }
     });
   },
-
   //显示当前位置坐标与当前速度
-  showLonLat: function () {
+  showLonLat() {
     var that = this;
-    this.getLonLat(function (lon, lat, speed) {
+    this.getLonLat((lon, lat, speed) => {
       var lonStr = lon >= 0 ? '东经' : '西经',
         latStr = lat >= 0 ? '北纬' : '南纬';
       lon = lon.toFixed(2);
@@ -124,55 +137,31 @@ Page({
       that.showModal('当前位置和速度', '当前位置：' + lonStr + ',' + latStr + '。速度:' + speed + 'm/s');
     });
   },
-
-  //在地图上显示当前位置
-  showMap: function () {
-    this.getLonLat(function (lon, lat) {
-      wx.openLocation({
-        latitude: lat,
-        longitude: lon,
-        scale: 15,
-        name: "海底捞",
-        address: "xx街xx号",
-        fail: function () {
-          wx.showToast({
-            title: "地图打开失败",
-            duration: 1000,
-            icon: "cancel"
-          });
-        }
-      });
-    });
-  },
-
   //显示罗盘
-  showCompass: function () {
+  showCompass() {
     var that = this;
     this.setData({
       compassHidden: false
     })
-    wx.onCompassChange(function (res) {
+    wx.onCompassChange((res) => {
       console.log(res)
       if (!that.data.compassHidden) {
         that.setData({ compassVal: res.direction.toFixed(2) });
       }
     });
   },
-
   //隐藏罗盘
-  hideCompass: function () {
+  hideCompass() {
     this.setData({
       compassHidden: true
     })
   },
-
   //摇一摇
-  shake: function () {
+  shake() {
     var that = this;
     //启用摇一摇
     this.gravityModalConfirm(true);
-
-    wx.onAccelerometerChange(function (res) {
+    wx.onAccelerometerChange((res) => {
       //摇一摇核心代码，判断手机晃动幅度
       var x = res.x.toFixed(4),
         y = res.y.toFixed(4),
@@ -181,24 +170,25 @@ Page({
         flagY = that.getDelFlag(y, that.data.shakeData.y),
         flagZ = that.getDelFlag(z, that.data.shakeData.z);
 
-      that.data.shakeData = {
+      const shakeData = {
         x: res.x.toFixed(4),
         y: res.y.toFixed(4),
         z: res.z.toFixed(4)
       };
+      that.setData({ shakeData });
       if (flagX && flagY || flagX && flagZ || flagY && flagZ) {
         // 如果摇一摇幅度足够大，则认为摇一摇成功
         if (that.data.shakeInfo.enabled) {
-          that.data.shakeInfo.enabled = false;
+          that.setData({ 
+            'shakeInfo.enabled': false
+           })
           that.playShakeAudio();
         }
       }
     });
   },
-
-
   //启用或者停用摇一摇功能
-  gravityModalConfirm: function (flag) {
+  gravityModalConfirm(flag) {
     if (flag !== true) {
       flag = false;
     }
@@ -211,37 +201,35 @@ Page({
       }
     })
   },
-
   //计算摇一摇的偏移量
-  getDelFlag: function (val1, val2) {
+  getDelFlag(val1, val2) {
     return (Math.abs(val1 - val2) >= 1);
   },
-
   // 摇一摇成功后播放声音并累加摇一摇次数
-  playShakeAudio: function () {
+  playShakeAudio() {
     var that = this;
     wx.playBackgroundAudio({
       dataUrl: 'http://7xqnxu.com1.z0.glb.clouddn.com/wx_app_shake.mp3',
       title: '',
       coverImgUrl: ''
     });
-    wx.onBackgroundAudioStop(function () {
-      that.data.shakeInfo.num++;
+    wx.onBackgroundAudioStop(() => {
+      let { num } = that.data.shakeInfo;
+      num++;
       that.setData({
         shakeInfo: {
-          num: that.data.shakeInfo.num,
+          num,
           enabled: true,
           gravityModalHidden: false
         }
       });
     });
   },
-
   //扫描二维码
-  scanQRCode: function () {
+  scanQRCode() {
     var that = this;
     wx.scanCode({
-      success: function (res) {
+      success(res) {
         console.log(res)
         that.showModal('扫描二维码', res.result, false);
       },
@@ -250,7 +238,6 @@ Page({
       }
     })
   },
-
   //下载并预览文档
   downloadDocumentList: function () {
     wx.navigateTo({
@@ -283,23 +270,19 @@ Page({
       url: '/pages/setting/open-api/tpl-message/tpl-message'
     });
   },
-
   wxPay: function () {
     wx.navigateTo({
       url: '/pages/setting/open-api/wx-pay/wx-pay'
     });
   },
-
   showWxKeyDemo: function () {
     wx.navigateTo({
       url: '/pages/setting/others/wx-key/wx-key'
     });
   },
-
   showScrollViewDemo: function () {
     wx.navigateTo({
       url: '/pages/setting/others/scroll-view/scroll-view'
     });
   }
-
 })

@@ -17,7 +17,6 @@
 }
 .category-item.personal-info {
     height: 130rpx;
-    display: flex;
     padding: 20rpx 0;
 }
 .category-item.personal-info .user-avatar {
@@ -25,6 +24,7 @@
     width: 130rpx;
     height: 130rpx;
     position: relative;
+    float: left;
 }
 .category-item.personal-info .user-avatar image {
     vertical-align: top;
