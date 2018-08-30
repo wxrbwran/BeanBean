@@ -30,6 +30,12 @@ Page({
     totalMovies = [...this.data.movies, ...movies];
     this.setData({ movies: totalMovies });
   },
+  onMovieTap(e) {
+    const { movieId } = e.currentTarget.dataset;
+    wx.navigateTo({
+      url: `../movie-detail/movie-detail?movieId=${movieId}`,
+    })
+  },
   /**
    * 生命周期函数--监听页面加载
    */

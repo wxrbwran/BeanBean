@@ -17,16 +17,15 @@ Page({
     ],
     api: [
       { iconurl: '/images/icon/wx_app_list.png', title: '下载pdf、word文档', tap: 'downloadDocumentList' },
-      { iconurl: '', title: '用户登陆', tap: 'login' },
-      { iconurl: '', title: '校验用户信息', tap: 'check' },
-      { iconurl: '', title: '获取用户加密信息', tap: 'decrypted' },
-      { iconurl: '', title: '模板消息', tap: 'tplMessage' },
-      { iconurl: '', title: '微信支付', tap: 'wxPay' }
+      // { iconurl: '', title: '用户登陆', tap: 'login' },
+      // { iconurl: '', title: '校验用户信息', tap: 'check' },
+      // { iconurl: '', title: '获取用户加密信息', tap: 'decrypted' },
+      // { iconurl: '', title: '模板消息', tap: 'tplMessage' },
+      // { iconurl: '', title: '微信支付', tap: 'wxPay' }
     ],
-    others: [
-      { iconurl: '', title: 'wx:key示例', tap: 'showWxKeyDemo' },
-      { iconurl: '', title: 'scroll-view高级用法演示', tap: 'showScrollViewDemo' }
-    ],
+    // others: [
+    //   { iconurl: '', title: 'scroll-view高级用法演示', tap: 'showScrollViewDemo' }
+    // ],
     compassVal: 0,
     compassHidden: true,
     shakeInfo: {
@@ -49,10 +48,15 @@ Page({
   },
   getUserInfo() {
     const self = this;
+    wx.showLoading({
+      title: '正在登录',
+    })
     wx.getUserInfo({
       success(res) {
+        wx.hideLoading();
         console.log(res);
         // ‘包含用户信息等详细信息’
+        app.globalData.allInfo = res;
         app.globalData.userInfo = res.userInfo;
         self.setData({
           userInfo: res.userInfo,
